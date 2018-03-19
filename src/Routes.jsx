@@ -1,14 +1,19 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
-import SitiesView from './Components/SitiesView'
+import SitiesView from './Components/SitiesViewComponent';
 
-export default () =>
+export default (stores) =>
 {
+    const loadSiteViewer = function(ns, replace) {
+		stores.sites.load();
+    };
+    
     return (
-        <Route path="/" component={App} stores={stores}>
-            <IndexRoute component={About}/>
-            <Route path="clones" component={SitiesView} />
-        </Route>
+        <div>
+        <Route path="/" component={SitiesView}  />
+        </div>
     )
+
+    //onEnter={loadSiteViewer} store={stores.sites}
 }

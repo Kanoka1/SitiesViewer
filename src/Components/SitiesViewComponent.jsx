@@ -12,7 +12,7 @@ import {
   } from 'material-ui/Table';
   import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-  export default class SitesView extends Component {
+  export default class SitiesViewComponent extends Component {
     render() {
       return (
         <MuiThemeProvider>
