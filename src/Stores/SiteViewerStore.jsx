@@ -1,9 +1,10 @@
+import {observable, action} from 'mobx';
 import SiteInfo from '../Models/SiteInfo';
 
 export default class SiteViewerStore 
 {
-    //@observable
-    sitelist = [];
+    @observable spbsitelist = [];
+    @observable msksitelist = [];
 
     constructor(stores){
         this.stores = stores;
@@ -11,7 +12,7 @@ export default class SiteViewerStore
     }
 
     load(){
-        var url = '';
+        var url = 'http://192.168.222.85:5002/servers';
         fetch(url)
         .then( r => r.json() )
         .then( this.gotModel.bind(this) )
@@ -20,7 +21,7 @@ export default class SiteViewerStore
         });
     }
 
-    //@action 
+    @action 
     gotModel(m) {
 		var result = [];
         m.forEach(o => {

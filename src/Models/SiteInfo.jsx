@@ -1,19 +1,19 @@
-//import {observable} from 'mobx'
-
+import {observable} from 'mobx'
 
 export default class SiteInfo {
     store;
 
-    DataCenter;
-    HostName;
-    ActiveSite;
-    BranchName;
-    TvMonAddress;
-    PrtgAddress;
-    Hosts;
-    BuildVersion;
-    ServerType;
-    Status;
+    @observable Status;
+    @observable DataCenter;
+    @observable HostName;
+    @observable ActiveSite;
+    @observable BranchName;
+    @observable BranchUrl;
+    @observable TvMonAddress;
+    @observable PrtgAddress;
+    @observable Hosts;
+    @observable BuildVersion;
+    @observable ServerTypes;
 
     constructor(store) {
 		this.store = store;

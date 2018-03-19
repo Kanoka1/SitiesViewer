@@ -11,7 +11,7 @@ export default (stores) =>
     
     return (
         <div>
-        <Route path="/" component={SitiesView}  />
+            <Route path="/" component={SitiesView}  />
         </div>
     )
 
