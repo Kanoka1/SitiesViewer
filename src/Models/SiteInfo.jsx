@@ -3,26 +3,46 @@ import {observable} from 'mobx'
 export default class SiteInfo {
     store;
 
-    @observable Status;
-    @observable DataCenter;
-    @observable HostName;
-    @observable ActiveSite;
-    @observable BranchName;
-    @observable BranchUrl;
-    @observable TvMonAddress;
-    @observable PrtgAddress;
-    @observable Hosts;
-    @observable BuildVersion;
-    @observable ServerTypes;
+    @observable status;
+    @observable dataCenter;
+    @observable hostName;
+    @observable activeSite;
+    @observable branchName;
+    @observable branchUrl;
+    @observable tvMonAddress;
+    @observable prtgAddress;
+    @observable hosts;
+    @observable buildVersion;
+    @observable serverTypes;
 
     constructor(store) {
 		this.store = store;
 	}
 
 	static fromJS(store, site) {
-		var ret = new SiteInfo(store);
-		if (site.DataCenter)
-			ret.DataCenter = site.DataCenter;
+    var ret = new SiteInfo(store);
+    if (site.status)
+      ret.status = site.status;
+		if (site.dataCenter)
+      ret.dataCenter = site.dataCenter;
+    if (site.hostName)
+      ret.hostName = site.hostName;
+    if (site.activeSite)
+      ret.activeSite = site.activeSite;
+    if (site.branchName)
+      ret.branchName = site.branchName;
+    if (site.branchUrl)
+      ret.branchUrl = site.branchUrl;
+    if (site.tvMonAddress)
+      ret.tvMonAddress = site.tvMonAddress;
+    if (site.prtgAddress)
+      ret.prtgAddress = site.prtgAddress;
+    if (site.hosts)
+      ret.hosts = site.hosts;
+    if (site.buildVersion)
+      ret.buildVersion = site.buildVersion;
+    if (site.serverTypes)
+      ret.serverTypes = site.serverTypes;
 		return ret;
 	}
 

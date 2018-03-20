@@ -1,0 +1,42 @@
+[
+    {
+        "status": 0,
+        "dataCenter": 0,
+        "hostName": "spb-srv-5.ati.dom",
+        "activeSite": "Unknown",
+        "branchName": "mar19-v1",
+        "branchUrl": "http://stash:7990/projects/AW/repos/ati.web/compare/commits?targetBranch=refs%2Fheads%2Fmaster&sourceBranch=refs%2Fheads%2Fmar19-v1",
+        "tvMonAddress": "http://tvmon.ri.domain/nagios/cgi-bin/status.cgi?host=spb-srv-5",
+        "prtgAddress": "http://prtg:8080/device.htm?id=5759&tabid=1",
+        "hosts": "",
+        "buildVersion": "319.1419",
+        "serverTypes": [
+            {
+                "key": 1,
+                "value": "Search"
+            }
+        ]
+    },
+    {
+        "status": 0,
+        "dataCenter": 1,
+        "hostName": "spb-srv-31.ati.dom",
+        "activeSite": "Unknown",
+        "branchName": "mar19-v1",
+        "branchUrl": "http://stash:7990/projects/AW/repos/ati.web/compare/commits?targetBranch=refs%2Fheads%2Fmaster&sourceBranch=refs%2Fheads%2Fmar19-v1",
+        "tvMonAddress": "http://tvmon.ri.domain/nagios/cgi-bin/status.cgi?host=spb-srv-31",
+        "prtgAddress": "http://prtg:8080/device.htm?id=6905&tabid=1",
+        "hosts": "",
+        "buildVersion": "319.1419",
+        "serverTypes": [
+            {
+                "key": 4,
+                "value": "Forum"
+            },
+            {
+                "key": 2,
+                "value": "Edit"
+            }
+        ]
+    }
+]

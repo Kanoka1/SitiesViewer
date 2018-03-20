@@ -1,7 +1,9 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
 
 import SitiesView from './Components/SitiesViewComponent';
+import { Router, Route, browserHistory } from 'react-router';
+
+import Stores from './Stores.js';
 
 export default (stores) =>
 {
@@ -9,10 +11,15 @@ export default (stores) =>
 		stores.sites.load();
     };
     
+    var stores = new Stores();
+
     return (
-        <div>
-            <Route path="/" component={SitiesView}  />
-        </div>
+        <Router history={browserHistory}>
+        <Route path="/" component={SitiesView} stores={stores}>
+            <Route path='spb' component={SitiesView} store={stores.sites}/>
+            <Route path='msk' component={SitiesView} store={stores.sites}/>
+        </Route>
+        </Router>
     )
 
     //onEnter={loadSiteViewer} store={stores.sites}
