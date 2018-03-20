@@ -62,17 +62,13 @@ import {
         <Tabs>
         <Tab label="Питерский ДЦ">
 
-          <Toolbar>
-          <ToolbarGroup>
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
           <MenuItem value={0} primaryText="Тип сервера" />
           <MenuItem value={1} primaryText="Редактирование" />
           <MenuItem value={2} primaryText="Поиск" />
           <MenuItem value={3} primaryText="Форумы" />
           </DropDownMenu>
-          </ToolbarGroup>
-          </Toolbar>  
-
+          
           <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -89,7 +85,7 @@ import {
                 <TableRowColumn>{row.hostName}</TableRowColumn>
                 <TableRowColumn>{row.activeSite}</TableRowColumn>
                 <TableRowColumn>{row.branchName}</TableRowColumn>
-                <TableRowColumn>{row.serverTypes.map(t => <span style={{background: this.getColor(t.value), 'margin-right': '5px'}}>{t.value}</span>)}</TableRowColumn>
+                <TableRowColumn>{row.serverTypes.map(t => <span style={{background: this.getColor(t.value), marginRight: '5px'}}>{t.value}</span>)}</TableRowColumn>
                 <TableRowColumn>{row.prtgAddress}</TableRowColumn>
               </TableRow>
           ))}
@@ -97,6 +93,14 @@ import {
           </Table>  
         </Tab>
         <Tab label="Московский ДЦ">
+        
+          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+          <MenuItem value={0} primaryText="Тип сервера" />
+          <MenuItem value={1} primaryText="Редактирование" />
+          <MenuItem value={2} primaryText="Поиск" />
+          <MenuItem value={3} primaryText="Форумы" />
+          </DropDownMenu>
+
           <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -113,7 +117,7 @@ import {
                 <TableRowColumn>{row.hostName}</TableRowColumn>
                 <TableRowColumn>{row.activeSite}</TableRowColumn>
                 <TableRowColumn>{row.branchName}</TableRowColumn>
-                <TableRowColumn>{row.serverTypes.map(t => <span style={{background: this.getColor(t.value), 'margin-right': '5px'}}>{t.value}</span>)}</TableRowColumn>
+                <TableRowColumn>{row.serverTypes.map(t => <span style={{background: this.getColor(t.value), marginRight: '5px'}}>{t.value}</span>)}</TableRowColumn>
                 <TableRowColumn>{row.prtgAddress}</TableRowColumn>
               </TableRow>
           ))}
