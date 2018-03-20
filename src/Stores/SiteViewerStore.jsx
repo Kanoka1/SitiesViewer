@@ -5,18 +5,20 @@ import Json from '../test.json';
 
 export default class SiteViewerStore 
 {
+    @observable spbsitelistMaster = [];
+    @observable msksitelistMaster = [];
     @observable spbsitelist = [];
     @observable msksitelist = [];
 
     constructor(stores){
         this.stores = stores;
-        this.load();
+        //this.load();
     }
 
     load(){
         var url = 'http://192.168.222.85:5002/servers';
         fetch(url)
-        .then( r => r.json() )
+        .then( r => r ? r.json() : "" )
         .then( this.gotModel.bind(this) )
         .catch(function(err) {
             console.log('err', err);
@@ -32,7 +34,7 @@ export default class SiteViewerStore
                 "branchUrl": "http://stash:7990/projects/AW/repos/ati.web/compare/commits?targetBranch=refs%2Fheads%2Fmaster&sourceBranch=refs%2Fheads%2Fmar19-v1",
                 "tvMonAddress": "http://tvmon.ri.domain/nagios/cgi-bin/status.cgi?host=spb-srv-5",
                 "prtgAddress": "http://prtg:8080/device.htm?id=5759&tabid=1",
-                "hosts": "",
+                "hosts": "127.0.0.1 test-pc",
                 "buildVersion": "319.1419",
                 "serverTypes": [
                     {
@@ -50,7 +52,7 @@ export default class SiteViewerStore
                 "branchUrl": "http://stash:7990/projects/AW/repos/ati.web/compare/commits?targetBranch=refs%2Fheads%2Fmaster&sourceBranch=refs%2Fheads%2Fmar19-v1",
                 "tvMonAddress": "http://tvmon.ri.domain/nagios/cgi-bin/status.cgi?host=spb-srv-31",
                 "prtgAddress": "http://prtg:8080/device.htm?id=6905&tabid=1",
-                "hosts": "",
+                "hosts": "127.0.0.1 test-pc",
                 "buildVersion": "319.1419",
                 "serverTypes": [
                     {
@@ -64,27 +66,28 @@ export default class SiteViewerStore
                 ]
             }
         ];
-        this.gotModel(data);
+        //this.gotModel(data);
     }
 
-    //@action 
+    @action 
     gotModel(m) {
         var spbresult = [];
         var mskresult = [];
         m.forEach(o => {
-            if (o.dataCenter == 1)
+            if (o.dataCenter === 1)
                 spbresult.push(this.addNewSite(o))
             else
                 mskresult.push(this.addNewSite(o))
         });
         this.spbsitelist.replace(spbresult);
         this.msksitelist.replace(mskresult);
+        this.spbsitelistMaster.replace(spbresult);
+        this.msksitelistMaster.replace(mskresult);
     }
     
     
 	addNewSite(m)
 	{
-        //var val = { Asn: m.Asn, Date: m.AddDate, Reasons: m.Reasons };
         var model = SiteInfo.fromJS(this, m);
         return model;
     }

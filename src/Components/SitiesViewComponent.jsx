@@ -16,15 +16,20 @@ import {
   import DropDownMenu from 'material-ui/DropDownMenu';
   import MenuItem from 'material-ui/MenuItem';
   import {observable, action} from 'mobx'
+  import {Link} from 'react-router';
+  import {observer} from 'mobx-react';
 
-  export default class SitiesViewComponent extends Component {
+  export default @observer class SitiesViewComponent extends Component {
     constructor() {
       super();
       this.state = {value: 0};
     }
 
-    @observable spb = this.props.route.stores.sites.spbsitelist;
+    @observable spbMaster = this.props.route.stores.sites.spbsitelistMaster;
+    @observable mskMaster = this.props.route.stores.sites.msksitelistMaster;
+
     @observable msk = this.props.route.stores.sites.msksitelist;
+    @observable spb = this.props.route.stores.sites.spbsitelist;
 
     getColor(type){
       if (type == "Search")
@@ -35,40 +40,65 @@ import {
         return '#ffa500';
     }
 
-    handleChange = (event, index, value) => this.setState({value});
+    handleChange = (event, index, value) =>  this.change(this, value);
+    //this.change(this, value);
+    //this.setState({value});
 
-    @action
-    change()
+    change(comp, value)
     {
-      var value = this.state.value;
-      var result;
-      this.spb.forEach(t => {
-        if (t.serverTypes.contains(value))
-          result.push(value);
+      this.setState({value});
+      var result = [];
+      this.spbMaster.forEach(t => {
+          t.serverTypes.forEach(function(y)
+          {
+              if (y.key === value || value === 0){
+                result.push(t);
+                return;
+              }
+          })
       })
       this.spb.replace(result);
     }
 
+    handleChangeM = (event, index, value) =>  this.changeM(this, value);
+    //this.changeM(this, value);
+    //this.setState({value});
+
+    changeM(comp, value)
+    {
+      this.setState({value});
+      var result = [];
+      this.mskMaster.forEach(t => {
+          t.serverTypes.forEach(y =>{
+              if (y.key === value || value === 0){
+                result.push(t);
+                return;
+              }
+          })
+      })
+      this.msk.replace(result);
+    }    
+    
     render() {
       return (
         <MuiThemeProvider>
         <div>
           <Toolbar>
             <ToolbarGroup>
-              <ToolbarTitle text={"Наши серверочки :3"} />
+              <ToolbarTitle text={"Сервера ати веб"} />
             </ToolbarGroup>
           </Toolbar>        
-        
+
         <Tabs>
         <Tab label="Питерский ДЦ">
 
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
           <MenuItem value={0} primaryText="Тип сервера" />
-          <MenuItem value={1} primaryText="Редактирование" />
-          <MenuItem value={2} primaryText="Поиск" />
-          <MenuItem value={3} primaryText="Форумы" />
+          <MenuItem value={2} primaryText="Редактирование" />
+          <MenuItem value={1} primaryText="Поиск" />
+          <MenuItem value={4} primaryText="Форумы" />
           </DropDownMenu>
-          
+
           <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
@@ -82,11 +112,19 @@ import {
           <TableBody displayRowCheckbox={false}>
             {this.spb.map((row, index) => (
               <TableRow key={index}>
-                <TableRowColumn>{row.hostName}</TableRowColumn>
+                <TableRowColumn><Link to={`/hostview/${row.hostName}/spb`}>{row.hostName}</Link></TableRowColumn>
                 <TableRowColumn>{row.activeSite}</TableRowColumn>
-                <TableRowColumn>{row.branchName}</TableRowColumn>
+                <TableRowColumn>
+                  <Link target="_blank" to={row.branchUrl}>{row.branchName}</Link>  
+                  <br/>
+                  {`build version: ${row.buildVersion}`}
+                </TableRowColumn>
                 <TableRowColumn>{row.serverTypes.map(t => <span style={{background: this.getColor(t.value), marginRight: '5px'}}>{t.value}</span>)}</TableRowColumn>
-                <TableRowColumn>{row.prtgAddress}</TableRowColumn>
+                <TableRowColumn>
+                  <Link target="_blank" to={row.prtgAddress}>PRTG</Link>
+                  <br/>
+                  <Link target="_blank" to={row.tvMonAddress}>TV-MONITOR</Link>
+                </TableRowColumn>
               </TableRow>
           ))}
           </TableBody>
@@ -94,11 +132,11 @@ import {
         </Tab>
         <Tab label="Московский ДЦ">
         
-          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+          <DropDownMenu value={this.state.value} onChange={this.handleChangeM}>
           <MenuItem value={0} primaryText="Тип сервера" />
-          <MenuItem value={1} primaryText="Редактирование" />
-          <MenuItem value={2} primaryText="Поиск" />
-          <MenuItem value={3} primaryText="Форумы" />
+          <MenuItem value={2} primaryText="Редактирование" />
+          <MenuItem value={1} primaryText="Поиск" />
+          <MenuItem value={4} primaryText="Форумы" />
           </DropDownMenu>
 
           <Table>
@@ -112,22 +150,30 @@ import {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {this.msk.map((row, index) => (
-              <TableRow key={index}>
-                <TableRowColumn>{row.hostName}</TableRowColumn>
-                <TableRowColumn>{row.activeSite}</TableRowColumn>
-                <TableRowColumn>{row.branchName}</TableRowColumn>
-                <TableRowColumn>{row.serverTypes.map(t => <span style={{background: this.getColor(t.value), marginRight: '5px'}}>{t.value}</span>)}</TableRowColumn>
-                <TableRowColumn>{row.prtgAddress}</TableRowColumn>
-              </TableRow>
-          ))}
-          </TableBody>
+          {this.msk.map((row, index) => (
+            <TableRow key={index}>
+              <TableRowColumn><Link to={`/hostview/${row.hostName}/spb`}>{row.hostName}</Link></TableRowColumn>
+              <TableRowColumn>{row.activeSite}</TableRowColumn>
+              <TableRowColumn>
+                <Link target="_blank" to={row.branchUrl}>{row.branchName}</Link>  
+                <br/>
+                {`build version: ${row.buildVersion}`}
+              </TableRowColumn>
+              <TableRowColumn>{row.serverTypes.map(t => <span style={{background: this.getColor(t.value), marginRight: '5px'}}>{t.value}</span>)}</TableRowColumn>
+              <TableRowColumn>
+                <Link target="_blank" to={row.prtgAddress}>PRTG</Link>
+                <br/>
+                <Link target="_blank" to={row.tvMonAddress}>TV-MONITOR</Link>
+              </TableRowColumn>
+            </TableRow>
+        ))}
+        </TableBody>
           </Table>  
         </Tab>
       </Tabs>
 
         
-
+      {this.props.inner}
         </div>
         </MuiThemeProvider>
       );

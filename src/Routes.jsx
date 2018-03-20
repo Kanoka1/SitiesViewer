@@ -1,26 +1,21 @@
 import React from 'react';
 
 import SitiesView from './Components/SitiesViewComponent';
-import { Router, Route, browserHistory } from 'react-router';
+import HostsView from './Components/HostsViewDialog';
+import { Router, Route, browserHistory, Redirect } from 'react-router';
 
 import Stores from './Stores.js';
 
 export default (stores) =>
 {
-    const loadSiteViewer = function(ns, replace) {
+    const siteview = function(ns, replace) {
 		stores.sites.load();
-    };
-    
-    var stores = new Stores();
+	}
 
     return (
-        <Router history={browserHistory}>
-        <Route path="/" component={SitiesView} stores={stores}>
-            <Route path='spb' component={SitiesView} store={stores.sites}/>
-            <Route path='msk' component={SitiesView} store={stores.sites}/>
+       
+        <Route path="/" onEnter={siteview} component={SitiesView} stores={stores} >
+            <Route path='hostview/:hosts/:city' onEnter={siteview} component={{ inner : HostsView}} store={stores}/>
         </Route>
-        </Router>
     )
-
-    //onEnter={loadSiteViewer} store={stores.sites}
 }

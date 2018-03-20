@@ -11,7 +11,7 @@ export default class SiteInfo {
     @observable branchUrl;
     @observable tvMonAddress;
     @observable prtgAddress;
-    @observable hosts;
+    @observable hosts = [];
     @observable buildVersion;
     @observable serverTypes;
 
@@ -37,12 +37,11 @@ export default class SiteInfo {
       ret.tvMonAddress = site.tvMonAddress;
     if (site.prtgAddress)
       ret.prtgAddress = site.prtgAddress;
-    if (site.hosts)
-      ret.hosts = site.hosts;
     if (site.buildVersion)
       ret.buildVersion = site.buildVersion;
     if (site.serverTypes)
       ret.serverTypes = site.serverTypes;
+    ret.hosts = site.hosts;
 		return ret;
 	}
 
