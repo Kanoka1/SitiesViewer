@@ -15,9 +15,10 @@ import {
   import {ToolbarTitle, ToolbarGroup, Toolbar} from 'material-ui';
   import DropDownMenu from 'material-ui/DropDownMenu';
   import MenuItem from 'material-ui/MenuItem';
-  import {observable, action} from 'mobx'
+  import {observable} from 'mobx'
   import {Link} from 'react-router';
   import {observer} from 'mobx-react';
+  import HostsDialog from './HostsViewDialog';
 
   export default @observer class SitiesViewComponent extends Component {
     constructor() {
@@ -41,8 +42,6 @@ import {
     }
 
     handleChange = (event, index, value) =>  this.change(this, value);
-    //this.change(this, value);
-    //this.setState({value});
 
     change(comp, value)
     {
@@ -61,8 +60,6 @@ import {
     }
 
     handleChangeM = (event, index, value) =>  this.changeM(this, value);
-    //this.changeM(this, value);
-    //this.setState({value});
 
     changeM(comp, value)
     {
@@ -112,7 +109,7 @@ import {
           <TableBody displayRowCheckbox={false}>
             {this.spb.map((row, index) => (
               <TableRow key={index}>
-                <TableRowColumn><Link to={`/hostview/${row.hostName}/spb`}>{row.hostName}</Link></TableRowColumn>
+                <TableRowColumn><Link >{row.hostName}</Link></TableRowColumn>
                 <TableRowColumn>{row.activeSite}</TableRowColumn>
                 <TableRowColumn>
                   <Link target="_blank" to={row.branchUrl}>{row.branchName}</Link>  
@@ -171,8 +168,6 @@ import {
           </Table>  
         </Tab>
       </Tabs>
-
-        
       {this.props.inner}
         </div>
         </MuiThemeProvider>

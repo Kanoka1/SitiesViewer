@@ -18,4 +18,5 @@ export default (stores) =>
             <Route path='hostview/:hosts/:city' onEnter={siteview} component={{ inner : HostsView}} store={stores}/>
         </Route>
     )
+    //<Route path='hostview/:hosts/:city' onEnter={siteview} component={{ inner : HostsView}} store={stores}/>
 }
